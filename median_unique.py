@@ -1,3 +1,4 @@
+import string
 def median(a):
     """Return the median of sequence a."""
     a = sorted(a)
@@ -9,18 +10,24 @@ def median(a):
     else:
         return (a[length/2] + a[length/2 - 1]) / 2.0
 
-list_per_tweet = []
+
 f = open('tweet_input/tweets.txt')
-data = f.read()
-words = data.split()
-for i in words:
-	i = i.translate(string.maketrans("",""), string.punctuation)
-	word_no_punctuation.append(i)
-	word_dict[i] = word_no_punctuation.count(i)
-	
-for array in words:
-	x = words.count(array)
-	list_per_tweet.append(x)
-print list_per_tweet
-	
-print "median:", median(list_per_tweet)
+
+array = []
+number =[]
+words_no_punctuation = []
+c = []
+
+output = open('tweet_output/ft2.txt', 'w')
+
+for line in f:
+	array.append(line)
+
+f.close()
+
+for sentence in array:
+	sentence = sentence.translate(string.maketrans("",""), string.punctuation) # "?,." can also be string.punctuation to include all the punctuation
+	words = sentence.split()
+	number.append(len(list(set(words))))
+	output.write(str(median(number))+'\n')
+output.close()
